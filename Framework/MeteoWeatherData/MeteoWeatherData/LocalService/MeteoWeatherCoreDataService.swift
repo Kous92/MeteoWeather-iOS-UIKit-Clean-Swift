@@ -19,8 +19,18 @@ public class MeteoWeatherCoreDataService: MeteoWeatherLocalService {
     /// A container that encapsulates the Core Data stack. With a custom configuration to handle different operations.
     private lazy var persistentContainer: NSPersistentContainer? = {
         // Framework bundle ID and Core Data model name are needed to use a persistent container in a framework.
-        let identifier: String = "com.kous92.MeteoWeatherData"
-        let model: String = "MeteoWeatherCoreDataModel"
+        let identifier: String = "com.kous92.MeteoWeatherDataDebug1"
+        let model: String = "MeteoWeatherDatabaseModel"
+        
+        print(Bundle(identifier: identifier))
+        print(Bundle(for: type(of: self)))
+        print(Bundle.main.bundleIdentifier)
+        print(Bundle.allBundles.map { $0.bundleIdentifier })
+        print(Bundle.allFrameworks.map { $0.bundleIdentifier })
+        
+        if let bundle = Bundle(identifier: identifier) {
+            print("URL: \(bundle.url(forResource: model, withExtension: "momd")?.absoluteString)")
+        }
         
         guard let bundle = Bundle(identifier: identifier),
               let modelURL = bundle.url(forResource: model, withExtension: "momd"),
